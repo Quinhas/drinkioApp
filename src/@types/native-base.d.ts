@@ -1,3 +1,4 @@
+import "native-base";
 import { theme } from "../theme";
 
 type MyThemeType = typeof theme;

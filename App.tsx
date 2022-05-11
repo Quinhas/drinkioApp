@@ -15,16 +15,19 @@ import {
   RedHatDisplay_900Black_Italic,
   useFonts
 } from "@expo-google-fonts/red-hat-display";
+import { NavigationContainer } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { NativeBaseProvider } from "native-base";
+import { INativebaseConfig, NativeBaseProvider } from "native-base";
 import React from "react";
-import Home from "./src/screens/Home";
+import { TabNavigator } from "./src/navigation/TabNavigator";
 import { theme } from "./src/theme";
 
-const config = {
+const config: INativebaseConfig = {
   dependencies: {
     "linear-gradient": LinearGradient,
   },
+  enableRem: true,
+  strictMode: "warn",
 };
 
 export default function App() {
@@ -46,8 +49,10 @@ export default function App() {
   });
 
   return (
-    <NativeBaseProvider theme={theme} config={config}>
-      <Home />
-    </NativeBaseProvider>
+    <NavigationContainer>
+      <NativeBaseProvider theme={theme} config={config}>
+        <TabNavigator />
+      </NativeBaseProvider>
+    </NavigationContainer>
   );
 }

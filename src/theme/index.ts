@@ -1,4 +1,4 @@
-import { extendTheme, themeTools } from "native-base";
+import { extendTheme } from "native-base";
 
 export const theme = extendTheme({
   config: {
@@ -143,21 +143,5 @@ export const theme = extendTheme({
     heading: "Red Hat Display",
     body: "Red Hat Display",
     mono: "Red Hat Display",
-  },
-  styles: {
-    global: (props: any) => ({
-      "*": {
-        margin: 0,
-        padding: 0,
-        boxSizing: "border-box",
-      },
-      body: {
-        background: themeTools.mode("gray.50", "gray.900")(props),
-        color: themeTools.mode("gray.800", "gray.100")(props),
-      },
-      "input, button, select, textarea": {
-        fontFamily: "body",
-      },
-    }),
   },
 });

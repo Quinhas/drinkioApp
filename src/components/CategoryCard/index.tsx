@@ -54,6 +54,7 @@ export default function CategoryCard({
         resizeMode={"cover"}
         zIndex={"0"}
         size={"100%"}
+        alt={"Imagem de um drink"}
         source={{
           uri: backgroundImage,
         }}
