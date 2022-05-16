@@ -1,4 +1,14 @@
-import { Box, Flex, HStack, Image, Pressable, ScrollView, Text, VStack } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  VStack
+} from "native-base";
 import React, { useEffect, useState } from "react";
 import { Animated } from "react-native";
 import { SearchBar } from "../../components/SearchBar";
@@ -19,6 +29,7 @@ export function Categories() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [topCategories, setTopCategories] = useState<Category[]>([]);
   const todayCategoryAnimation = scaleAnimation(1, 0.98, 100);
+  const navigation = useNavigation();
 
   useEffect(() => {
     async function getCategories() {
@@ -33,9 +44,19 @@ export function Categories() {
     getCategories();
   }, []);
 
+  function goToCategoryDetails(id: number) {
+    navigation.navigate("CategoryDetailsPage", { id });
+  }
+
   return (
     <ScrollView py={"1rem"} showsVerticalScrollIndicator={false}>
-      <Flex justify={"space-between"} direction={"row"} mx={"1.5rem"} mt={"2rem"} align={"center"}>
+      <Flex
+        justify={"space-between"}
+        direction={"row"}
+        mx={"1.5rem"}
+        mt={"2rem"}
+        align={"center"}
+      >
         <Text fontWeight={"black"} fontSize={"2rem"}>
           Categories
         </Text>
@@ -48,9 +69,18 @@ export function Categories() {
         <Text fontSize={"1.25rem"} fontWeight={"bold"} mb={"0.5rem"}>
           Today's Category
         </Text>
-        <Pressable onPressIn={todayCategoryAnimation.onPressIn} onPressOut={todayCategoryAnimation.onPressOut}>
+        <Pressable
+          onPressIn={todayCategoryAnimation.onPressIn}
+          onPressOut={todayCategoryAnimation.onPressOut}
+        >
           <Animated.View style={todayCategoryAnimation.style}>
-            <Box w={"100%"} height={"12.5rem"} borderRadius={"lg"} position={"relative"} shadow={"2"}>
+            <Box
+              w={"100%"}
+              height={"12.5rem"}
+              borderRadius={"lg"}
+              position={"relative"}
+              shadow={"2"}
+            >
               <Text
                 position={"absolute"}
                 bottom={"1rem"}
@@ -71,7 +101,10 @@ export function Categories() {
                 borderRadius={"lg"}
                 bg={{
                   linearGradient: {
-                    colors: ["rgba(196, 196, 196, 0)", "rgba(0, 210, 255, 0.6)"],
+                    colors: [
+                      "rgba(196, 196, 196, 0)",
+                      "rgba(0, 210, 255, 0.6)",
+                    ],
                   },
                 }}
               />
@@ -108,10 +141,19 @@ export function Categories() {
 
       {/* Top Categories */}
       <Flex mt={"1rem"}>
-        <Text fontSize={"1.25rem"} fontWeight={"bold"} mb={"0.5rem"} mx={"1.5rem"}>
+        <Text
+          fontSize={"1.25rem"}
+          fontWeight={"bold"}
+          mb={"0.5rem"}
+          mx={"1.5rem"}
+        >
           Top Categories
         </Text>
-        <ScrollView horizontal persistentScrollbar={false} showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          persistentScrollbar={false}
+          showsHorizontalScrollIndicator={false}
+        >
           <HStack space="1rem">
             {topCategories &&
               topCategories.map((category) => (
@@ -124,7 +166,11 @@ export function Categories() {
                   align={"center"}
                   justify={"center"}
                   shadow={"2"}
-                  mr={topCategories[topCategories.length - 1] === category ? "1.5rem" : 0}
+                  mr={
+                    topCategories[topCategories.length - 1] === category
+                      ? "1.5rem"
+                      : 0
+                  }
                   ml={[...topCategories].shift() === category ? "1.5rem" : 0}
                 >
                   <Text
@@ -184,7 +230,7 @@ export function Categories() {
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}
-                onPress={() => console.log(`Categoria ${category.id} clicada.`)}
+                onPress={() => goToCategoryDetails(category.id)}
                 {...category}
               />
             ))}

@@ -1,5 +1,17 @@
 import axios, { AxiosInstance } from "axios";
+import { capitalizeOnlyFirstLetter } from "../utils/CapitalizeOnlyFirstLetter";
 
+export type DrinkProps = {};
+
+export type CategoryProps = {
+  id: number;
+  desc: string;
+  thumb: string;
+  top: boolean;
+  createdAt: string;
+  updatedAt: string;
+  drinks?: DrinkProps[];
+};
 class DrinkioService {
   httpClient: AxiosInstance;
 
@@ -11,8 +23,33 @@ class DrinkioService {
 
   async getAllCategories({ onlyTop = false }: { onlyTop?: boolean }) {
     try {
-      const { data } = await this.httpClient.get(`/categories`, { params: { onlyTop } });
-      return data;
+      const { data } = await this.httpClient.get<CategoryProps[]>(
+        `/categories`,
+        {
+          params: { onlyTop },
+        }
+      );
+      const categories = data.map((category) => {
+        return {
+          ...category,
+          desc: capitalizeOnlyFirstLetter(category.desc),
+        };
+      });
+      return categories;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getCategoryDetails({ id }: { id: number }) {
+    try {
+      const { data } = await this.httpClient.get<CategoryProps>(
+        `/categories/${id}`
+      );
+      return {
+        ...data,
+        desc: capitalizeOnlyFirstLetter(data.desc),
+      };
     } catch (err) {
       throw err;
     }
