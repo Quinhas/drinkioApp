@@ -1,7 +1,20 @@
 import axios, { AxiosInstance } from "axios";
 import { capitalizeOnlyFirstLetter } from "../utils/CapitalizeOnlyFirstLetter";
 
-export type DrinkProps = {};
+export type DrinkProps = {
+  id: number;
+  name: string;
+  categoryId: number;
+  alcoholic: boolean;
+  glassId: number;
+  instructions: string;
+  thumb: string;
+  top: boolean;
+  ingredients: {[key: string]: string};
+  measures: {[key: string]: string};
+  createdAt: string;
+  updatedAt: string;
+};
 
 export type CategoryProps = {
   id: number;

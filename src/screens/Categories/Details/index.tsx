@@ -1,6 +1,16 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Box, Button, Icon, Image, Text } from "native-base";
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Image,
+  ScrollView,
+  Text,
+  VStack
+} from "native-base";
 import React, { useEffect, useState } from "react";
 import drinkioApi, { CategoryProps } from "../../../services/DrinkioService";
 
@@ -38,7 +48,7 @@ export function CategoryDetails() {
   }
 
   return (
-    <>
+    <ScrollView>
       <Box
         minH={"12.5rem"}
         borderBottomRadius={"0.75rem"}
@@ -121,6 +131,55 @@ export function CategoryDetails() {
           }}
         />
       </Box>
-    </>
+      {category.drinks && (
+        <VStack space={4} px={"1.5rem"} py={"1.5rem"}>
+          {category.drinks.map((drink) => {
+            const color = drink.alcoholic ? "red.400" : "green.500";
+            return (
+              <Flex
+                h={"4.625rem"}
+                key={drink.id}
+                shadow={4}
+                bg={"white"}
+                borderRadius={"0.75rem"}
+                direction={"row"}
+                p={"0.75rem"}
+              >
+                <Image
+                  borderRadius={"lg"}
+                  resizeMode={"cover"}
+                  size={"3.125rem"}
+                  style={{
+                    aspectRatio: 1 / 1,
+                  }}
+                  zIndex={"0"}
+                  alt={"Imagem de um drink"}
+                  source={{
+                    uri: drink.thumb,
+                  }}
+                  mr={"0.75rem"}
+                />
+                <Flex align={"flex-start"} grow={1} justify={"space-between"}>
+                  <Text fontWeight={"black"}>{drink.name}</Text>
+                  <Badge
+                    variant={"outline"}
+                    borderRadius={"4px"}
+                    _text={{
+                      fontWeight: "bold",
+                      fontSize: "0.75rem",
+                      color: color,
+                    }}
+                    textTransform={"uppercase"}
+                    borderColor={color}
+                  >
+                    {drink.alcoholic ? "Alcoholic" : "Non alcoholic"}
+                  </Badge>
+                </Flex>
+              </Flex>
+            );
+          })}
+        </VStack>
+      )}
+    </ScrollView>
   );
 }

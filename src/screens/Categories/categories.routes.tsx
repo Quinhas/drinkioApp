@@ -7,13 +7,17 @@ const { Screen, Navigator } = createNativeStackNavigator();
 export function CategoriesStackRoutes() {
   return (
     <Navigator
-      initialRouteName="CategoryDefaultPage"
+      initialRouteName="CategoryDetailsPage"
       screenOptions={({ route }) => ({
         headerShown: false,
       })}
     >
       <Screen name="CategoryDefaultPage" component={Categories} />
-      <Screen name="CategoryDetailsPage" component={CategoryDetails} />
+      <Screen
+        name="CategoryDetailsPage"
+        component={CategoryDetails}
+        initialParams={{ id: 10 }}
+      />
     </Navigator>
   );
 }
