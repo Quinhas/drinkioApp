@@ -1,5 +1,6 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import _ from "lodash";
 import {
   Badge,
   Box,
@@ -8,7 +9,9 @@ import {
   Icon,
   Image,
   ScrollView,
+  Skeleton,
   Text,
+  View,
   VStack
 } from "native-base";
 import React, { useEffect, useState } from "react";
@@ -38,12 +41,60 @@ export function CategoryDetails() {
     getCategoryDetails();
   }, []);
 
-  if (isLoading || !category) {
+  if (isLoading) {
     return (
       <>
-        <Text>Carregando...</Text>
-        <Button onPress={navigation.goBack}>Voltar</Button>
+        <Skeleton minH={"12.5rem"} borderBottomRadius={"0.75rem"} w={"100%"} />
+        <VStack space={4} px={"1.5rem"} py={"1.5rem"}>
+          {_.times(8, (i) => (
+            <Skeleton key={i} h={"4.625rem"} borderRadius={"0.75rem"} />
+          ))}
+        </VStack>
       </>
+    );
+  }
+
+  if (!category) {
+    return (
+      <View h={"100vh"}>
+        <Button
+          size={"2rem"}
+          backgroundColor={"white"}
+          borderRadius={"full"}
+          mt={"0.75rem"}
+          ml={"1.5rem"}
+          onPress={navigation.goBack}
+        >
+          <Icon
+            as={FontAwesome}
+            name={"arrow-left"}
+            color={"primaryApp.500"}
+            size={"1rem"}
+          />
+        </Button>
+        <Flex px={"1.5rem"} py={"3rem"} align={"center"} grow={1}>
+          <Icon
+            as={FontAwesome5}
+            name="sad-tear"
+            size={"5rem"}
+            color={"muted.400"}
+          />
+          <Text fontWeight={"medium"} fontSize={"2rem"} color={"muted.400"}>
+            Oops!
+          </Text>
+          <Text fontSize={"1rem"} color={"muted.400"}>
+            Looks like this category doesn't exist or couldn't be found!
+          </Text>
+          <Button
+            mt={"1rem"}
+            onPress={() => navigation.navigate("HomePage")}
+            w={"full"}
+            colorScheme={"primaryApp"}
+          >
+            Go Home
+          </Button>
+        </Flex>
+      </View>
     );
   }
 
@@ -80,7 +131,7 @@ export function CategoryDetails() {
             position={"absolute"}
             top={"0.75rem"}
             right={"1.5rem"}
-            onPress={navigation.goBack}
+            onPress={() => navigation.goBack()}
           >
             <Icon
               as={FontAwesome}
@@ -131,14 +182,14 @@ export function CategoryDetails() {
           }}
         />
       </Box>
-      {category.drinks && (
+      {category.drinks && category.drinks.length > 0 && (
         <VStack space={4} px={"1.5rem"} py={"1.5rem"}>
           {category.drinks.map((drink) => {
             const color = drink.alcoholic ? "red.400" : "green.500";
             return (
               <Flex
-                h={"4.625rem"}
                 key={drink.id}
+                h={"4.625rem"}
                 shadow={4}
                 bg={"white"}
                 borderRadius={"0.75rem"}
@@ -179,6 +230,22 @@ export function CategoryDetails() {
             );
           })}
         </VStack>
+      )}
+      {category.drinks?.length === 0 && (
+        <Flex px={"1.5rem"} py={"1.5rem"} align={"center"}>
+          <Icon
+            as={FontAwesome5}
+            name="sad-tear"
+            size={"5rem"}
+            color={"muted.400"}
+          />
+          <Text fontWeight={"medium"} fontSize={"2rem"} color={"muted.400"}>
+            Oops!
+          </Text>
+          <Text fontSize={"1rem"} color={"muted.400"}>
+            It seems that this category does not have any drinks registered.
+          </Text>
+        </Flex>
       )}
     </ScrollView>
   );

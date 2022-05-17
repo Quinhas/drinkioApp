@@ -5,6 +5,10 @@ export declare global {
       CategoryDetailsPage: {
         id: number;
       };
+      CategoriesPage: {
+        [key: string]: any;
+      };
+      HomePage: undefined;
     }
   }
 }

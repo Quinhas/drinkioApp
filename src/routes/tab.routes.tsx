@@ -41,7 +41,7 @@ export function TabRoutes() {
         tabBarInactiveTintColor: "gray.100",
         headerShown: false,
       })}
-      initialRouteName="CategoriesPage"
+      initialRouteName="HomePage"
     >
       {routes.map((_route) => (
         <Screen
