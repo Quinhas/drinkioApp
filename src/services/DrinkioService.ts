@@ -10,8 +10,8 @@ export type DrinkProps = {
   instructions: string;
   thumb: string;
   top: boolean;
-  ingredients: {[key: string]: string};
-  measures: {[key: string]: string};
+  ingredients: { [key: string]: string };
+  measures: { [key: string]: string };
   createdAt: string;
   updatedAt: string;
 };
@@ -63,6 +63,17 @@ class DrinkioService {
         ...data,
         desc: capitalizeOnlyFirstLetter(data.desc),
       };
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getAllDrinksByCategory({ onlyTop = false }: { onlyTop?: boolean }) {
+    try {
+      const { data } = await this.httpClient.get<DrinkProps[]>(`/drinks`, {
+        params: { onlyTop },
+      });
+      return data;
     } catch (err) {
       throw err;
     }

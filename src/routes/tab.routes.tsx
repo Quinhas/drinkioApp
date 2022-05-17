@@ -1,4 +1,4 @@
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "native-base";
 import React from "react";
@@ -6,27 +6,70 @@ import { CategoriesStackRoutes } from "../screens/Categories/categories.routes";
 import { Favorites } from "../screens/Favorites";
 import { Home } from "../screens/Home";
 
-const routes = [
+type RouteProps = {
+  name: string;
+  title: string;
+  component: () => JSX.Element;
+  icon: ({
+    size,
+    color,
+    focused,
+  }: {
+    size: number;
+    color: string;
+    focused: boolean;
+  }) => JSX.Element;
+};
+
+const routes: RouteProps[] = [
   {
     name: "FavoritesPage",
     title: "Favorites",
     component: Favorites,
-    iconFamily: FontAwesome,
-    icon: "star",
+    icon: ({ size, color, focused }) => {
+      return (
+        <Icon
+          as={FontAwesome5}
+          name={"star"}
+          size={size}
+          color={color}
+          solid={focused}
+          outline={!focused}
+        />
+      );
+    },
   },
   {
     name: "HomePage",
     title: "Home",
     component: Home,
-    iconFamily: FontAwesome5,
-    icon: "cocktail",
+    icon: ({ size, color, focused }) => {
+      return (
+        <Icon
+          as={Ionicons}
+          name={focused ? "md-beer" : "md-beer-outline"}
+          size={size}
+          color={color}
+        />
+      );
+    },
   },
   {
     name: "CategoriesPage",
     title: "Categories",
     component: CategoriesStackRoutes,
-    iconFamily: FontAwesome5,
-    icon: "buffer",
+    icon: ({ size, color, focused }) => {
+      return (
+        <Icon
+          as={FontAwesome5}
+          name={"list-alt"}
+          size={size}
+          color={color}
+          solid={focused}
+          outline={!focused}
+        />
+      );
+    },
   },
 ];
 
@@ -35,10 +78,10 @@ const { Navigator, Screen } = createBottomTabNavigator();
 export function TabRoutes() {
   return (
     <Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         tabBarShowLabel: false,
         tabBarActiveTintColor: "primaryApp.500",
-        tabBarInactiveTintColor: "gray.100",
+        tabBarInactiveTintColor: "primaryApp.200",
         headerShown: false,
       })}
       initialRouteName="HomePage"
@@ -49,16 +92,7 @@ export function TabRoutes() {
           name={_route.name}
           component={_route.component}
           options={({ route }) => ({
-            tabBarIcon: ({ size, color }) => {
-              return (
-                <Icon
-                  as={_route.iconFamily}
-                  name={_route.icon}
-                  size={size}
-                  color={color}
-                />
-              );
-            },
+            tabBarIcon: _route.icon,
             title: _route.title,
           })}
         />

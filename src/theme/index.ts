@@ -178,5 +178,10 @@ export const theme = extendTheme({
         };
       },
     },
+    Icon: {
+      baseStyle: {
+        solid: false
+      }
+    }
   },
 });

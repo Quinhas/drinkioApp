@@ -2,8 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Box, Flex, Image, Pressable, Text } from "native-base";
 import React from "react";
 import { Animated } from "react-native";
-import { CategoryProps } from "../../services/DrinkioService";
-import { scaleAnimation } from "../../utils/animations/scale";
+import { CategoryProps } from "../../../../services/DrinkioService";
+import { scaleAnimation } from "../../../../utils/animations/scale";
 
 type TopCategoryCardProps = {
   isFirst: boolean;

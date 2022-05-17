@@ -1,23 +1,27 @@
+import { useNavigation } from "@react-navigation/native";
 import { Flex, Image, Pressable, Text } from "native-base";
 import React from "react";
 import { Animated } from "react-native";
-import { scaleAnimation } from "../../../../utils/animations/scale";
-import { capitalizeOnlyFirstLetter } from "../../../../utils/CapitalizeOnlyFirstLetter";
+import { CategoryProps } from "../../../services/DrinkioService";
+import { scaleAnimation } from "../../../utils/animations/scale";
+import { capitalizeOnlyFirstLetter } from "../../../utils/CapitalizeOnlyFirstLetter";
 
-type CategoryCardProps = {
-  id: number;
-  desc: string;
-  thumb: string;
-  createdAt: string;
-  updatedAt: string;
-  onPress: () => void;
-};
+type CategoryCardProps = {} & CategoryProps;
 
-export function CategoryCard({ id, desc, thumb, onPress }: CategoryCardProps) {
+export function CategoryCard({ id, desc, thumb }: CategoryCardProps) {
+  const navigation = useNavigation();
   const animation = scaleAnimation(1, 0.98, 100);
 
+  function goToCategoryDetails() {
+    navigation.navigate("CategoryDetailsPage", { id });
+  }
+
   return (
-    <Pressable onPress={onPress} onPressIn={animation.onPressIn} onPressOut={animation.onPressOut}>
+    <Pressable
+      onPress={goToCategoryDetails}
+      onPressIn={animation.onPressIn}
+      onPressOut={animation.onPressOut}
+    >
       <Animated.View style={animation.style}>
         <Flex
           w={"100%"}
