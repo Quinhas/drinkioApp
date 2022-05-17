@@ -2,7 +2,7 @@ import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "native-base";
 import React from "react";
-import { CategoriesStackRoutes } from "../screens/Categories/categories.routes";
+import { Categories } from "../screens/Categories";
 import { Favorites } from "../screens/Favorites";
 import { Home } from "../screens/Home";
 
@@ -57,7 +57,7 @@ const routes: RouteProps[] = [
   {
     name: "CategoriesPage",
     title: "Categories",
-    component: CategoriesStackRoutes,
+    component: Categories,
     icon: ({ size, color, focused }) => {
       return (
         <Icon

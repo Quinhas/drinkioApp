@@ -32,9 +32,7 @@ export function CategoryDetails() {
     const _category = await drinkioApi.getCategoryDetails({ id });
     setCategory(_category);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    setIsLoading(false);
   }
 
   useEffect(() => {

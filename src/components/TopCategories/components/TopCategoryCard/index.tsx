@@ -22,12 +22,8 @@ export function TopCategoryCard({
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate("CategoriesPage", {
-          screen: "CategoryDetailsPage",
-          initial: false,
-          params: {
-            id: id,
-          },
+        navigation.navigate("CategoryDetails", {
+          id: id,
         })
       }
       onPressIn={animation.onPressIn}

@@ -13,7 +13,7 @@ export function DrinkCard({ id, name, thumb, alcoholic }: DrinkCardProps) {
   const color = alcoholic ? "red.400" : "green.500";
 
   function goToDrinkDetails() {
-    navigation.navigate("CategoryDetailsPage", { id });
+    navigation.navigate("DrinkDetails", { id });
   }
 
   return (

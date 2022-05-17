@@ -13,7 +13,7 @@ export function CategoryCard({ id, desc, thumb }: CategoryCardProps) {
   const animation = scaleAnimation(1, 0.98, 100);
 
   function goToCategoryDetails() {
-    navigation.navigate("CategoryDetailsPage", { id });
+    navigation.navigate("CategoryDetails", { id });
   }
 
   return (
