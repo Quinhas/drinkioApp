@@ -238,7 +238,9 @@ export function DrinkDetails() {
             zIndex={"0"}
             alt={"Imagem de um drink"}
             source={{
-              uri: drink.glass?.thumb ?? "https://mrconfeccoes.com.br/wp-content/uploads/2018/03/default.jpg",
+              uri:
+                drink.glass?.thumb ??
+                "https://mrconfeccoes.com.br/wp-content/uploads/2018/03/default.jpg",
             }}
             mr={"0.75rem"}
           />
