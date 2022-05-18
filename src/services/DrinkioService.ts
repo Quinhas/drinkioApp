@@ -1,6 +1,14 @@
 import axios, { AxiosInstance } from "axios";
 import { capitalizeOnlyFirstLetter } from "../utils/CapitalizeOnlyFirstLetter";
 
+export type GlassProps = {
+  id: number;
+  desc: string;
+  thumb: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type DrinkProps = {
   id: number;
   name: string;
@@ -14,6 +22,7 @@ export type DrinkProps = {
   measures: { [key: string]: string };
   createdAt: string;
   updatedAt: string;
+  glass?: GlassProps;
 };
 
 export type CategoryProps = {

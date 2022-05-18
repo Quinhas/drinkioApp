@@ -27,65 +27,25 @@ export function CategoryDetails() {
   const { id } = route.params as CategoryDetailsParams;
 
   async function getCategoryDetails() {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    const _category = await drinkioApi.getCategoryDetails({ id });
-    setCategory(_category);
-
-    setIsLoading(false);
+      const _category = await drinkioApi.getCategoryDetails({ id });
+      setCategory(_category);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
     getCategoryDetails();
   }, []);
 
-  if (!category) {
-    return (
-      <View h={"100vh"}>
-        <Button
-          size={"2rem"}
-          backgroundColor={"white"}
-          borderRadius={"full"}
-          mt={"0.75rem"}
-          ml={"1.5rem"}
-          onPress={navigation.goBack}
-        >
-          <Icon
-            as={FontAwesome}
-            name={"arrow-left"}
-            color={"primaryApp.500"}
-            size={"1rem"}
-          />
-        </Button>
-        <Flex px={"1.5rem"} py={"3rem"} align={"center"} grow={1}>
-          <Icon
-            as={FontAwesome5}
-            name="sad-tear"
-            size={"5rem"}
-            color={"muted.400"}
-          />
-          <Text fontWeight={"medium"} fontSize={"2rem"} color={"muted.400"}>
-            Oops!
-          </Text>
-          <Text fontSize={"1rem"} color={"muted.400"}>
-            Looks like this category doesn't exist or couldn't be found!
-          </Text>
-          <Button
-            mt={"1rem"}
-            onPress={() => navigation.navigate("HomePage")}
-            w={"full"}
-            colorScheme={"primaryApp"}
-          >
-            Go Home
-          </Button>
-        </Flex>
-      </View>
-    );
-  }
-
   return (
     <ScrollView>
-      {!isLoading && (
+      {!isLoading && category && (
         <Box
           minH={"12.5rem"}
           borderBottomRadius={"0.75rem"}
@@ -169,6 +129,47 @@ export function CategoryDetails() {
           />
         </Box>
       )}
+      {!isLoading && !category && (
+        <View h={"100vh"}>
+          <Button
+            size={"2rem"}
+            backgroundColor={"white"}
+            borderRadius={"full"}
+            mt={"0.75rem"}
+            ml={"1.5rem"}
+            onPress={navigation.goBack}
+          >
+            <Icon
+              as={FontAwesome}
+              name={"arrow-left"}
+              color={"primaryApp.500"}
+              size={"1rem"}
+            />
+          </Button>
+          <Flex px={"1.5rem"} py={"3rem"} align={"center"} grow={1}>
+            <Icon
+              as={FontAwesome5}
+              name="sad-tear"
+              size={"5rem"}
+              color={"muted.400"}
+            />
+            <Text fontWeight={"medium"} fontSize={"2rem"} color={"muted.400"}>
+              Oops!
+            </Text>
+            <Text fontSize={"1rem"} color={"muted.400"}>
+              Looks like this category doesn't exist or couldn't be found!
+            </Text>
+            <Button
+              mt={"1rem"}
+              onPress={() => navigation.navigate("Tabs")}
+              w={"full"}
+              colorScheme={"primaryApp"}
+            >
+              Go Home
+            </Button>
+          </Flex>
+        </View>
+      )}
       {isLoading && (
         <Skeleton
           h={"12.5rem"}
@@ -178,7 +179,7 @@ export function CategoryDetails() {
         />
       )}
 
-      <DrinksList isLoading={isLoading} drinks={category.drinks} />
+      <DrinksList isLoading={isLoading} drinks={category?.drinks} />
     </ScrollView>
   );
 }

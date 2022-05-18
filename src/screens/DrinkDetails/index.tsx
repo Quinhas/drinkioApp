@@ -9,10 +9,12 @@ import {
   Image,
   ScrollView,
   Text,
-  View
+  View,
+  VStack
 } from "native-base";
 import React, { useEffect, useState } from "react";
 import drinkioApi, { DrinkProps } from "../../services/DrinkioService";
+import { capitalizeOnlyFirstLetter } from "../../utils/CapitalizeOnlyFirstLetter";
 
 type DrinkDetailsParams = {
   id: number;
@@ -128,16 +130,15 @@ export function DrinkDetails() {
           </Button>
           <Flex position={"absolute"} bottom={"0.75rem"} left={"1.5rem"}>
             <Badge
-              variant={"outline"}
+              variant={"solid"}
+              colorScheme={drink.alcoholic ? "red" : "green"}
               borderRadius={"4px"}
-              w={'max-content'}
+              w={"max-content"}
               _text={{
                 fontWeight: "bold",
                 fontSize: "0.75rem",
-                color: drink.alcoholic ? "red.400" : "green.500",
               }}
               textTransform={"uppercase"}
-              borderColor={drink.alcoholic ? "red.400" : "green.500"}
             >
               {drink.alcoholic ? "Alcoholic" : "Non alcoholic"}
             </Badge>
@@ -177,6 +178,112 @@ export function DrinkDetails() {
           }}
         />
       </Box>
+
+      <VStack space={"1.5rem"} m={"1.5rem"}>
+        {/* Ingredients */}
+        <Flex
+          bgColor={"white"}
+          p={"0.75rem"}
+          borderRadius={"0.75rem"}
+          shadow={4}
+        >
+          <Text fontWeight={"bold"} fontSize={"1.25rem"}>
+            Ingredients
+          </Text>
+          {Object.values(drink.ingredients).map((ingredient, index) => {
+            return (
+              <Flex
+                key={index}
+                ml={"0.75rem"}
+                direction={"row"}
+                align={"center"}
+              >
+                <Text
+                  color={"primaryApp.500"}
+                  fontSize={"1.25rem"}
+                  mr={"0.5rem"}
+                  lineHeight={"1.25rem"}
+                >
+                  •
+                </Text>
+                <Text
+                  fontSize={"0.875rem"}
+                  color={"muted.600"}
+                  fontWeight={"bold"}
+                  lineHeight={"1.25rem"}
+                >
+                  {ingredient}
+                </Text>
+              </Flex>
+            );
+          })}
+        </Flex>
+
+        {/* Glass */}
+        <Flex
+          bgColor={"white"}
+          p={"0.75rem"}
+          borderRadius={"0.75rem"}
+          shadow={4}
+          direction={"row"}
+          align={"center"}
+        >
+          <Image
+            borderRadius={"lg"}
+            resizeMode={"cover"}
+            size={"2.5rem"}
+            style={{
+              aspectRatio: 1 / 1,
+            }}
+            zIndex={"0"}
+            alt={"Imagem de um drink"}
+            source={{
+              uri: drink.glass?.thumb ?? "https://mrconfeccoes.com.br/wp-content/uploads/2018/03/default.jpg",
+            }}
+            mr={"0.75rem"}
+          />
+          <Text fontWeight={"bold"} fontSize={"1.25rem"}>
+            {drink.glass?.desc
+              ? capitalizeOnlyFirstLetter(drink.glass.desc)
+              : ""}
+          </Text>
+        </Flex>
+
+        {/* Instructions */}
+        <Flex
+          bgColor={"white"}
+          p={"0.75rem"}
+          borderRadius={"0.75rem"}
+          shadow={4}
+        >
+          <Text fontWeight={"bold"} fontSize={"1.25rem"}>
+            Instructions
+          </Text>
+          {drink.instructions.split(/\r\n/g).map((instruction, index) => {
+            return (
+              <Flex
+                key={index}
+                ml={"0.75rem"}
+                direction={"row"}
+                align={"flex-start"}
+                fontSize={"0.875rem"}
+              >
+                <Text
+                  color={"primaryApp.500"}
+                  fontWeight={"bold"}
+                  minW={"7%"}
+                  maxW={"7%"}
+                >
+                  {index + 1}.
+                </Text>
+                <Text color={"muted.600"} fontWeight={"bold"}>
+                  {instruction.trim()}
+                </Text>
+              </Flex>
+            );
+          })}
+        </Flex>
+      </VStack>
     </ScrollView>
   );
 }
