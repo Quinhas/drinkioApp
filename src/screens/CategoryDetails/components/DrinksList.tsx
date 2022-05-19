@@ -12,7 +12,7 @@ type DrinksListProps = {
 
 export function DrinksList({ isLoading, drinks }: DrinksListProps) {
   return (
-    <Flex mx={"1.5rem"} mt={"1rem"}>
+    <Flex m={"1.5rem"}>
       <Text fontSize={"1.25rem"} fontWeight={"bold"} mb={"0.5rem"}>
         All Drinks
       </Text>

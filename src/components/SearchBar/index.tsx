@@ -1,10 +1,14 @@
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { Icon, Input } from "native-base";
 import React from "react";
 
-export function SearchBar() {
-  // TODO: Make functional search bar
-  return <></>;
+type SearchBarProps = {
+  placeholder: string;
+};
+
+export function SearchBar({ placeholder }: SearchBarProps) {
+  const navigation = useNavigation();
   return (
     <Input
       mx={"1.5rem"}
@@ -12,12 +16,16 @@ export function SearchBar() {
       variant={"filled"}
       borderRadius={"0.75rem"}
       bgColor={"white"}
-      placeholder={"Search categories"}
+      placeholder={placeholder}
       fontSize={"0.9375rem"}
       fontWeight={"medium"}
       h={"2.25rem"}
       py={"0"}
-      InputLeftElement={<Icon as={FontAwesome5} name="search" size={"1rem"} px={"0.875rem"} />}
+      InputLeftElement={
+        <Icon as={FontAwesome5} name="search" size={"1rem"} px={"0.875rem"} />
+      }
+      onClick={() => navigation.navigate("SearchResponse", { placeholder })}
+      readonly
     />
   );
 }

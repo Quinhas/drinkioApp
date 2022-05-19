@@ -77,6 +77,17 @@ class DrinkioService {
     }
   }
 
+  async getAllDrinks({ onlyTop = false }: { onlyTop?: boolean }) {
+    try {
+      const { data } = await this.httpClient.get<DrinkProps[]>(`/drinks`, {
+        params: { onlyTop },
+      });
+      return data;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async getDrinkDetails({ id }: { id: number }) {
     try {
       const { data } = await this.httpClient.get<DrinkProps>(`/drinks/${id}`);

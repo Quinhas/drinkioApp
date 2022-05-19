@@ -8,6 +8,7 @@ import {
   Icon,
   Image,
   ScrollView,
+  Skeleton,
   Text,
   View,
   VStack
@@ -33,14 +34,26 @@ export function DrinkDetails() {
     const _drink = await drinkioApi.getDrinkDetails({ id });
     setDrink(_drink);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    setIsLoading(false);
   }
 
   useEffect(() => {
     getDrinkDetails();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View>
+        <Skeleton
+          h={"12.5rem"}
+          borderBottomRadius={"0.75rem"}
+          w={"100%"}
+          shadow={4}
+        />
+        <Skeleton.Text lines={12} p={"1.5rem"} />
+      </View>
+    );
+  }
 
   if (!drink) {
     return (

@@ -20,7 +20,7 @@ export function Categories() {
           </Text>
           {/* <ToggleColorMode /> */}
         </Flex>
-        <SearchBar />
+        <SearchBar placeholder={"Search categories"} />
 
         <TopCategories />
 

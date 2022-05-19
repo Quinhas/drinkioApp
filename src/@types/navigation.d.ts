@@ -8,6 +8,9 @@ export declare global {
         id: number;
       };
       Tabs: any;
+      SearchResponse: {
+        placeholder: string;
+      };
     }
   }
 }
