@@ -54,7 +54,30 @@ export const theme = extendTheme({
       800: "#570F11",
       900: "#2B0808",
     },
-
+    red: {
+      50: "#ffe1eb",
+      100: "#ffb1c4",
+      200: "#ff7e9d",
+      300: "#ff4c76",
+      400: "#ff1a4f",
+      500: "#e60035",
+      600: "#b40029",
+      700: "#81001d",
+      800: "#500011",
+      900: "#210005",
+    },
+    green: {
+      50: "#d9fff6",
+      100: "#acffe7",
+      200: "#7bffd9",
+      300: "#49ffca",
+      400: "#1affbb",
+      500: "#00e6a2",
+      600: "#00b37e",
+      700: "#008059",
+      800: "#004e35",
+      900: "#001c10",
+    },
     google: {
       50: "#FDEAE8",
       100: "#F8C3BE",
@@ -67,7 +90,6 @@ export const theme = extendTheme({
       800: "#5C100A",
       900: "#2E0805",
     },
-
     twitter: {
       50: "#dcf7ff",
       100: "#b0e2ff",
@@ -80,7 +102,6 @@ export const theme = extendTheme({
       800: "#002e4c",
       900: "#00101f",
     },
-
     facebook: {
       50: "#e7f0ff",
       100: "#c4d3ef",
@@ -93,7 +114,6 @@ export const theme = extendTheme({
       800: "#11203c",
       900: "#020b1b",
     },
-
     gray: {
       50: "#f2f2f2",
       100: "#d9d9d9",
@@ -144,20 +164,24 @@ export const theme = extendTheme({
     body: "Red Hat Display",
     mono: "Red Hat Display",
   },
-  styles: {
-    global: (props: any) => ({
-      "*": {
-        margin: 0,
-        padding: 0,
-        boxSizing: "border-box",
+  components: {
+    Skeleton: {
+      baseStyle: (props: Record<string, any>) => {
+        return {
+          startColor: themeTools.mode("gray.200", "muted.600")(props),
+          endColor: "gray.100",
+          overflow: "hidden",
+          fadeDuration: 0.1,
+          speed: 1.0,
+          h: "10",
+          w: "100%",
+        };
       },
-      body: {
-        background: themeTools.mode("gray.50", "gray.900")(props),
-        color: themeTools.mode("gray.800", "gray.100")(props),
-      },
-      "input, button, select, textarea": {
-        fontFamily: "body",
-      },
-    }),
+    },
+    Icon: {
+      baseStyle: {
+        solid: false
+      }
+    }
   },
 });

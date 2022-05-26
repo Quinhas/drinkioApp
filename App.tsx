@@ -16,15 +16,18 @@ import {
   useFonts
 } from "@expo-google-fonts/red-hat-display";
 import { LinearGradient } from "expo-linear-gradient";
-import { NativeBaseProvider } from "native-base";
+import { INativebaseConfig, NativeBaseProvider } from "native-base";
 import React from "react";
-import Home from "./src/screens/Home";
+import { FavoritesContextProvider } from "./src/contexts/FavoritesContext";
+import { Routes } from "./src/routes";
 import { theme } from "./src/theme";
 
-const config = {
+const config: INativebaseConfig = {
   dependencies: {
     "linear-gradient": LinearGradient,
   },
+  enableRem: true,
+  strictMode: "warn",
 };
 
 export default function App() {
@@ -47,7 +50,9 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme} config={config}>
-      <Home />
+      <FavoritesContextProvider>
+        <Routes />
+      </FavoritesContextProvider>
     </NativeBaseProvider>
   );
 }
