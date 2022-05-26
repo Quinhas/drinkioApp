@@ -70,6 +70,7 @@ export function TodaysCategory() {
               alt={"Imagem de um drink"}
               source={{
                 uri: "https://www.thecocktaildb.com/images/media/drink/rrtssw1472668972.jpg",
+                cache: "force-cache"
               }}
             />
           </Box>

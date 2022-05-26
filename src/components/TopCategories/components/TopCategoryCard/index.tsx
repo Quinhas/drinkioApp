@@ -80,6 +80,7 @@ export function TopCategoryCard({
             alt={"Imagem de um drink"}
             source={{
               uri: thumb,
+              cache: "force-cache"
             }}
           />
         </Flex>

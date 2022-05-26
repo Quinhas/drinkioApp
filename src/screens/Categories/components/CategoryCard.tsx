@@ -45,6 +45,7 @@ export function CategoryCard({ id, desc, thumb }: CategoryCardProps) {
             alt={"Imagem de um drink"}
             source={{
               uri: thumb,
+              cache: "force-cache"
             }}
           />
           <Text fontWeight={"black"} ml={"0.5rem"}>

@@ -42,6 +42,7 @@ export function DrinkCard({ id, name, thumb, alcoholic }: DrinkCardProps) {
             alt={"Imagem de um drink"}
             source={{
               uri: thumb,
+              cache: "force-cache"
             }}
             mr={"0.75rem"}
           />

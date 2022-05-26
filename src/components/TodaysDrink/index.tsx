@@ -62,6 +62,7 @@ export function TodaysDrink() {
           alt={"Imagem de um drink"}
           source={{
             uri: "https://www.thecocktaildb.com/images/media/drink/6ck9yi1589574317.jpg",
+            cache: "force-cache"
           }}
         />
       </Box>
