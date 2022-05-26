@@ -11,6 +11,7 @@ import {
   View
 } from "native-base";
 import React, { useEffect, useState } from "react";
+import useFavorites from "../../hooks/useFavorites";
 import drinkioApi, { CategoryProps } from "../../services/DrinkioService";
 import { NotFound } from "../NotFound";
 import { DrinksList } from "./components/DrinksList";
@@ -25,6 +26,7 @@ export function CategoryDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params as CategoryDetailsParams;
+  const { favoritesCategories, updateFavoriteCategory } = useFavorites();
 
   async function getCategoryDetails() {
     try {
@@ -94,9 +96,14 @@ export function CategoryDetails() {
           >
             <Icon
               as={FontAwesome}
-              name={"star"}
+              name={
+                favoritesCategories?.find((id) => id === category.id)
+                  ? "star"
+                  : "star-o"
+              }
               color={"primaryApp.500"}
               size={"1rem"}
+              onPress={() => updateFavoriteCategory(category.id)}
             />
           </Button>
           <Text
@@ -138,6 +145,7 @@ export function CategoryDetails() {
           alt={"Imagem de um drink"}
           source={{
             uri: category.thumb,
+            cache: "force-cache"
           }}
         />
       </Box>

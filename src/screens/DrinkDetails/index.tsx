@@ -14,6 +14,7 @@ import {
   VStack
 } from "native-base";
 import React, { useEffect, useState } from "react";
+import useFavorites from "../../hooks/useFavorites";
 import drinkioApi, { DrinkProps } from "../../services/DrinkioService";
 import { capitalizeOnlyFirstLetter } from "../../utils/CapitalizeOnlyFirstLetter";
 
@@ -27,6 +28,7 @@ export function DrinkDetails() {
   const route = useRoute();
   const navigation = useNavigation();
   const { id } = route.params as DrinkDetailsParams;
+  const { favoritesDrinks, updateFavoriteDrink } = useFavorites();
 
   async function getDrinkDetails() {
     setIsLoading(true);
@@ -136,9 +138,14 @@ export function DrinkDetails() {
           >
             <Icon
               as={FontAwesome}
-              name={"star"}
+              name={
+                favoritesDrinks?.find((id) => id === drink.id)
+                  ? "star"
+                  : "star-o"
+              }
               color={"primaryApp.500"}
               size={"1rem"}
+              onPress={() => updateFavoriteDrink(drink.id)}
             />
           </Button>
           <Flex position={"absolute"} bottom={"0.75rem"} left={"1.5rem"}>
@@ -188,6 +195,7 @@ export function DrinkDetails() {
           alt={"Imagem de um drink"}
           source={{
             uri: drink.thumb,
+            cache: "force-cache",
           }}
         />
       </Box>
@@ -254,6 +262,7 @@ export function DrinkDetails() {
               uri:
                 drink.glass?.thumb ??
                 "https://mrconfeccoes.com.br/wp-content/uploads/2018/03/default.jpg",
+              cache: "force-cache",
             }}
             mr={"0.75rem"}
           />

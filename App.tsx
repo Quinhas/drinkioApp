@@ -18,6 +18,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { INativebaseConfig, NativeBaseProvider } from "native-base";
 import React from "react";
+import { FavoritesContextProvider } from "./src/contexts/FavoritesContext";
 import { Routes } from "./src/routes";
 import { theme } from "./src/theme";
 
@@ -49,7 +50,9 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme} config={config}>
-      <Routes />
+      <FavoritesContextProvider>
+        <Routes />
+      </FavoritesContextProvider>
     </NativeBaseProvider>
   );
 }
