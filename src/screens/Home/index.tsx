@@ -19,7 +19,7 @@ export function Home() {
           </Text>
           {/* <ToggleColorMode /> */}
         </Flex>
-        <SearchBar placeholder={"Search drinks or categories"} />
+        <SearchBar placeholder={"Search drinks or categories"} selected={'Drinks'} categories={true} drinks={true} />
 
         {/* <TodaysDrink /> */}
 

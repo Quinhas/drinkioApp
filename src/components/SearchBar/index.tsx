@@ -5,9 +5,17 @@ import React from "react";
 
 type SearchBarProps = {
   placeholder: string;
+  categories?: boolean;
+  drinks?: boolean;
+  selected: "Drinks" | "Categories";
 };
 
-export function SearchBar({ placeholder }: SearchBarProps) {
+export function SearchBar({
+  placeholder,
+  categories,
+  drinks,
+  selected,
+}: SearchBarProps) {
   const navigation = useNavigation();
   return (
     <Input
@@ -24,7 +32,14 @@ export function SearchBar({ placeholder }: SearchBarProps) {
       InputLeftElement={
         <Icon as={FontAwesome5} name="search" size={"1rem"} px={"0.875rem"} />
       }
-      onClick={() => navigation.navigate("SearchResponse", { placeholder })}
+      onClick={() =>
+        navigation.navigate("SearchResponse", {
+          placeholder: placeholder,
+          categories: categories,
+          drinks: drinks,
+          selected: selected,
+        })
+      }
       readonly
     />
   );

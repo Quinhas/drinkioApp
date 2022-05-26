@@ -10,6 +10,9 @@ export declare global {
       Tabs: any;
       SearchResponse: {
         placeholder: string;
+        categories?: boolean;
+        drinks?: boolean;
+        selected: "Drinks" | "Categories";
       };
     }
   }
