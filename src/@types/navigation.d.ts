@@ -1,13 +1,15 @@
 export declare global {
   namespace ReactNavigation {
-    type RootParamList = {
+    interface RootParamList {
+      HomePage: any;
+      CategoriesPage: any;
+      FavoritesPage: any;
       CategoryDetails: {
         id: number;
       };
       DrinkDetails: {
         id: number;
       };
-      Tabs: any;
       SearchResponse: {
         placeholder: string;
         categories?: boolean;

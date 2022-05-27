@@ -1,5 +1,10 @@
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 
 type FavoritesContextProps = {
   favoritesDrinks: number[];
@@ -14,70 +19,82 @@ type FavoritesContextProviderProps = {
 
 export const FavoritesContext = createContext({} as FavoritesContextProps);
 
-export function FavoritesContextProvider(props: FavoritesContextProviderProps) {
+export function FavoritesContextProvider({
+  children,
+}: FavoritesContextProviderProps) {
   const [favoritesDrinks, setFavoritesDrinks] = useState<number[]>(
-    JSON.parse(localStorage.getItem("@DrinkioApp:FavoritesDrinks")!) ?? []
+    JSON.parse(localStorage.getItem('@DrinkioApp:FavoritesDrinks')!) ?? [],
   );
   const [favoritesCategories, setFavoritesCategories] = useState<number[]>(
-    JSON.parse(localStorage.getItem("@DrinkioApp:FavoritesCategories")!) ?? []
+    JSON.parse(localStorage.getItem('@DrinkioApp:FavoritesCategories')!) ?? [],
   );
-  const { getItem: getDrinks, setItem: setDrinks } = useAsyncStorage(
-    "@DrinkioApp:FavoritesDrinks"
-  );
-  const { getItem: getCategories, setItem: setCategories } = useAsyncStorage(
-    "@DrinkioApp:FavoritesCategories"
-  );
+  // const { getItem: getDrinks, setItem: setDrinks } = useAsyncStorage(
+  //   '@DrinkioApp:FavoritesDrinks'
+  // );
+  // const { getItem: getCategories, setItem: setCategories } = useAsyncStorage(
+  //   '@DrinkioApp:FavoritesCategories'
+  // );
 
   useEffect(() => {
     (async () => {
-      await setDrinks(JSON.stringify(favoritesDrinks));
+      // await setDrinks(JSON.stringify(favoritesDrinks));
       localStorage.setItem(
-        "@DrinkioApp:FavoritesDrinks",
-        JSON.stringify(favoritesDrinks)
+        '@DrinkioApp:FavoritesDrinks',
+        JSON.stringify(favoritesDrinks),
       );
     })();
   }, [favoritesDrinks]);
 
   useEffect(() => {
     (async () => {
-      await setCategories(JSON.stringify(favoritesCategories));
+      // await setCategories(JSON.stringify(favoritesCategories));
       localStorage.setItem(
-        "@DrinkioApp:FavoritesCategories",
-        JSON.stringify(favoritesCategories)
+        '@DrinkioApp:FavoritesCategories',
+        JSON.stringify(favoritesCategories),
       );
     })();
   }, [favoritesCategories]);
 
   function updateFavoriteDrink(id: number) {
-    const drinkExists = favoritesDrinks.find((_id) => _id === id);
+    const drinkExists = favoritesDrinks.find((_id) =>
+      _id === id);
     if (!drinkExists) {
-      setFavoritesDrinks((prevState) => [...prevState, id]);
+      setFavoritesDrinks((prevState) =>
+        [...prevState, id]);
     } else {
-      setFavoritesDrinks((prevState) => prevState.filter((_id) => _id !== id));
+      setFavoritesDrinks((prevState) =>
+        prevState.filter((_id) =>
+          _id !== id));
     }
   }
 
   function updateFavoriteCategory(id: number) {
-    const categoryExists = favoritesCategories.find((_id) => _id === id);
+    const categoryExists = favoritesCategories.find((_id) =>
+      _id === id);
     if (!categoryExists) {
-      setFavoritesCategories((prevState) => [...prevState, id]);
+      setFavoritesCategories((prevState) =>
+        [...prevState, id]);
     } else {
       setFavoritesCategories((prevState) =>
-        prevState.filter((_id) => _id !== id)
-      );
+        prevState.filter((_id) =>
+          _id !== id));
     }
   }
 
-  return (
-    <FavoritesContext.Provider
-      value={{
+  const value = useMemo(
+    () =>
+      ({
         favoritesDrinks,
         favoritesCategories,
         updateFavoriteDrink,
         updateFavoriteCategory,
-      }}
-    >
-      {props.children}
+      }),
+    [],
+  );
+
+  return (
+    <FavoritesContext.Provider value={value}>
+      {children}
     </FavoritesContext.Provider>
   );
 }

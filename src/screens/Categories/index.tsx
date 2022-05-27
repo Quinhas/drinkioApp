@@ -1,30 +1,36 @@
-import { Flex, Text } from "native-base";
-import React from "react";
-import { CategoryOfTheDay } from "../../components/CategoryOfTheDay";
-import { CustomView } from "../../components/CustomView";
-import { SearchBar } from "../../components/SearchBar";
-import { TopCategories } from "../../components/TopCategories";
-import { CategoriesList } from "./components/CategoriesList";
+import { Flex, Text } from 'native-base';
+import React from 'react';
+import { CategoryOfTheDay } from '../../components/CategoryOfTheDay';
+import { CustomView } from '../../components/CustomView';
+import { SearchBar } from '../../components/SearchBar';
+import { TopCategories } from '../../components/TopCategories';
+import { CategoriesList } from './components/CategoriesList';
 
 export function Categories() {
   return (
-    <CustomView showsVerticalScrollIndicator={false} showTabs>
+    <CustomView
+      showsVerticalScrollIndicator={false}
+      showTabs
+    >
       <Flex
-        justify={"space-between"}
-        direction={"row"}
-        mx={"1.5rem"}
-        mt={"2rem"}
-        align={"center"}
+        justify='space-between'
+        direction='row'
+        mx='1.5rem'
+        mt='3rem'
+        align='center'
       >
-        <Text fontWeight={"black"} fontSize={"2rem"}>
+        <Text
+          fontWeight='black'
+          fontSize='2rem'
+        >
           Categories
         </Text>
         {/* <ToggleColorMode /> */}
       </Flex>
       <SearchBar
-        placeholder={"Search categories"}
-        selected={"Categories"}
-        categories={true}
+        placeholder='Search categories'
+        selected='Categories'
+        categories
       />
 
       <CategoryOfTheDay />

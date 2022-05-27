@@ -1,19 +1,26 @@
-import { useNavigation } from "@react-navigation/native";
-import { Badge, Flex, Image, Pressable, Text } from "native-base";
-import React from "react";
-import { Animated } from "react-native";
-import { DrinkProps } from "../../../services/DrinkioService";
-import { scaleAnimation } from "../../../utils/animations/scale";
+import { useNavigation } from '@react-navigation/native';
+import {
+  Badge,
+  Flex,
+  Image,
+  Pressable,
+  Text,
+  useColorModeValue
+} from 'native-base';
+import React from 'react';
+import { Animated } from 'react-native';
+import { DrinkProps } from '../../../services/DrinkioService';
+import { scaleAnimation } from '../../../utils/animations/scale';
 
 type DrinkCardProps = {} & DrinkProps;
 
 export function DrinkCard({ id, name, thumb, alcoholic }: DrinkCardProps) {
   const animation = scaleAnimation(1, 0.98, 100);
   const navigation = useNavigation();
-  const color = alcoholic ? "red.400" : "green.500";
+  const color = alcoholic ? 'red.400' : 'green.500';
 
   function goToDrinkDetails() {
-    navigation.navigate("DrinkDetails", { id });
+    navigation.navigate('DrinkDetails', { id });
   }
 
   return (
@@ -24,43 +31,47 @@ export function DrinkCard({ id, name, thumb, alcoholic }: DrinkCardProps) {
     >
       <Animated.View style={animation.style}>
         <Flex
-          h={"4.625rem"}
+          h='4.625rem'
           shadow={4}
-          bg={"white"}
-          borderRadius={"0.75rem"}
-          direction={"row"}
-          p={"0.75rem"}
-          mb={"1rem"}
+          bg={useColorModeValue('white', 'black')}
+          borderRadius='0.75rem'
+          direction='row'
+          p='0.75rem'
+          mb='1rem'
         >
           <Image
-            borderRadius={"lg"}
-            resizeMode={"cover"}
-            size={"3.125rem"}
+            borderRadius='lg'
+            resizeMode='cover'
+            size='3.125rem'
             style={{
               aspectRatio: 1 / 1,
             }}
-            zIndex={"0"}
-            alt={"Imagem de um drink"}
+            zIndex='0'
+            alt='Imagem de um drink'
             source={{
               uri: thumb,
-              cache: "force-cache",
+              cache: 'force-cache',
             }}
-            mr={"0.75rem"}
+            mr='0.75rem'
           />
-          <Flex align={"flex-start"} grow={1} justify={"space-between"}>
-            <Text fontWeight={"black"}>{name}</Text>
+          <Flex
+            align='flex-start'
+            grow={1}
+            justify='space-between'
+          >
+            <Text fontWeight='black'>{name}</Text>
             <Badge
-              variant={"outline"}
-              borderRadius={"4px"}
+              variant='outline'
+              borderRadius='4px'
               _text={{
-                fontWeight: "bold",
-                fontSize: "0.75rem",
-                color: color,
+                fontWeight: 'bold',
+                fontSize: '0.75rem',
+                color,
               }}
-              textTransform={"uppercase"}
+              textTransform='uppercase'
               borderColor={color}
             >
-              {alcoholic ? "Alcoholic" : "Non alcoholic"}
+              {alcoholic ? 'Alcoholic' : 'Non alcoholic'}
             </Badge>
           </Flex>
         </Flex>
