@@ -1,5 +1,6 @@
 import { Flex, ScrollView, Text } from "native-base";
 import React from "react";
+import { DrinkOfTheDay } from "../../components/DrinkOfTheDay";
 import { SearchBar } from "../../components/SearchBar";
 import { TopCategories } from "../../components/TopCategories";
 
@@ -21,7 +22,7 @@ export function Home() {
         </Flex>
         <SearchBar placeholder={"Search drinks or categories"} selected={'Drinks'} categories={true} drinks={true} />
 
-        {/* <TodaysDrink /> */}
+        <DrinkOfTheDay />
 
         <TopCategories />
       </ScrollView>
