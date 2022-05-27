@@ -2,6 +2,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import _ from "lodash";
 import { Flex, HStack, Icon, ScrollView, Text, VStack } from "native-base";
 import React from "react";
+import { CustomView } from "../../components/CustomView";
 import useFavorites from "../../hooks/useFavorites";
 import { CategoryCard } from "./components/CategoryCard";
 import { DrinkCard } from "./components/DrinkCard";
@@ -9,7 +10,7 @@ import { DrinkCard } from "./components/DrinkCard";
 export function Favorites() {
   const { favoritesDrinks, favoritesCategories } = useFavorites();
   return (
-    <>
+    <CustomView showTabs>
       <Flex
         justify={"space-between"}
         direction={"row"}
@@ -107,6 +108,6 @@ export function Favorites() {
           </Flex>
         )}
       </Flex>
-    </>
+    </CustomView>
   );
 }

@@ -1,16 +1,8 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  Box,
-  Button,
-  Icon,
-  Image,
-  ScrollView,
-  Skeleton,
-  Text,
-  View
-} from "native-base";
+import { Box, Button, Icon, Image, Skeleton, Text, View } from "native-base";
 import React, { useEffect, useState } from "react";
+import { CustomView } from "../../components/CustomView";
 import useFavorites from "../../hooks/useFavorites";
 import drinkioApi, { CategoryProps } from "../../services/DrinkioService";
 import { NotFound } from "../NotFound";
@@ -60,7 +52,7 @@ export function CategoryDetails() {
   }
 
   return category ? (
-    <ScrollView>
+    <CustomView showTabs>
       <Box
         minH={"12.5rem"}
         borderBottomRadius={"0.75rem"}
@@ -145,14 +137,14 @@ export function CategoryDetails() {
           alt={"Imagem de um drink"}
           source={{
             uri: category.thumb,
-            cache: "force-cache"
+            cache: "force-cache",
           }}
         />
       </Box>
       <DrinksList isLoading={isLoading} drinks={category?.drinks} />
-    </ScrollView>
+    </CustomView>
   ) : (
-    <View>
+    <CustomView showTabs>
       <Button
         size={"2rem"}
         backgroundColor={"white"}
@@ -169,6 +161,6 @@ export function CategoryDetails() {
         />
       </Button>
       <NotFound />
-    </View>
+    </CustomView>
   );
 }
