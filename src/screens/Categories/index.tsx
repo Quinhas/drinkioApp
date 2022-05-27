@@ -1,5 +1,6 @@
 import { Flex, ScrollView, Text } from "native-base";
 import React from "react";
+import { CategoryOfTheDay } from "../../components/CategoryOfTheDay";
 import { SearchBar } from "../../components/SearchBar";
 import { TopCategories } from "../../components/TopCategories";
 import { CategoriesList } from "./components/CategoriesList";
@@ -25,6 +26,8 @@ export function Categories() {
           selected={"Categories"}
           categories={true}
         />
+
+        <CategoryOfTheDay />
 
         <TopCategories />
 
