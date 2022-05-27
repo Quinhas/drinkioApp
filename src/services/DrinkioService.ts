@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from "axios";
-import { capitalizeOnlyFirstLetter } from "../utils/CapitalizeOnlyFirstLetter";
+import axios, { AxiosInstance } from 'axios';
+import { capitalizeOnlyFirstLetter } from '../utils/CapitalizeOnlyFirstLetter';
 
 export type GlassProps = {
   id: number;
@@ -39,62 +39,45 @@ class DrinkioService {
 
   constructor() {
     this.httpClient = axios.create({
-      baseURL: "https://drinkioapi-production.up.railway.app",
+      baseURL: 'https://drinkioapi-production.up.railway.app',
     });
   }
 
   async getAllCategories({ onlyTop = false }: { onlyTop?: boolean }) {
-    try {
-      const { data } = await this.httpClient.get<CategoryProps[]>(
-        `/categories`,
-        {
-          params: { onlyTop },
-        }
-      );
-      const categories = data.map((category) => {
-        return {
-          ...category,
-          desc: capitalizeOnlyFirstLetter(category.desc),
-        };
-      });
-      return categories;
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await this.httpClient.get<CategoryProps[]>(
+      '/categories',
+      {
+        params: { onlyTop },
+      }
+    );
+    const categories = data.map((category) =>
+      ({
+        ...category,
+        desc: capitalizeOnlyFirstLetter(category.desc),
+      }));
+    return categories;
   }
 
   async getCategoryDetails({ id }: { id: number }) {
-    try {
-      const { data } = await this.httpClient.get<CategoryProps>(
-        `/categories/${id}`
-      );
-      return {
-        ...data,
-        desc: capitalizeOnlyFirstLetter(data.desc),
-      };
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await this.httpClient.get<CategoryProps>(
+      `/categories/${id}`
+    );
+    return {
+      ...data,
+      desc: capitalizeOnlyFirstLetter(data.desc),
+    };
   }
 
   async getAllDrinks({ onlyTop = false }: { onlyTop?: boolean }) {
-    try {
-      const { data } = await this.httpClient.get<DrinkProps[]>(`/drinks`, {
-        params: { onlyTop },
-      });
-      return data;
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await this.httpClient.get<DrinkProps[]>('/drinks', {
+      params: { onlyTop },
+    });
+    return data;
   }
 
   async getDrinkDetails({ id }: { id: number }) {
-    try {
-      const { data } = await this.httpClient.get<DrinkProps>(`/drinks/${id}`);
-      return data;
-    } catch (err) {
-      throw err;
-    }
+    const { data } = await this.httpClient.get<DrinkProps>(`/drinks/${id}`);
+    return data;
   }
 }
 
