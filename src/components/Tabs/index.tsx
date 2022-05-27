@@ -1,13 +1,8 @@
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
-import type { } from "@react-navigation/routers";
-import { Flex, useColorModeValue } from "native-base";
-import React from "react";
-import { TabButton } from "./components/TabButton";
-type IconProps = {
-  size: string;
-  color: string;
-  focused: boolean;
-};
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import type { } from '@react-navigation/routers';
+import { Flex, useColorModeValue } from 'native-base';
+import React from 'react';
+import { TabButton } from './components/TabButton';
 
 type RouteProps = {
   id: string;
@@ -20,41 +15,42 @@ type RouteProps = {
 export function Tabs() {
   const routes: RouteProps[] = [
     {
-      id: "FavoritesPage",
-      title: "Favorites",
+      id: 'FavoritesPage',
+      title: 'Favorites',
       iconFamily: FontAwesome5,
-      iconName: "star",
-      iconNameOutline: "star",
+      iconName: 'star',
+      iconNameOutline: 'star',
     },
     {
-      id: "HomePage",
-      title: "Home",
+      id: 'HomePage',
+      title: 'Home',
       iconFamily: Ionicons,
-      iconName: "md-beer",
-      iconNameOutline: "md-beer-outline",
+      iconName: 'md-beer',
+      iconNameOutline: 'md-beer-outline',
     },
     {
-      id: "CategoriesPage",
-      title: "Categories",
+      id: 'CategoriesPage',
+      title: 'Categories',
       iconFamily: FontAwesome5,
-      iconName: "list-alt",
-      iconNameOutline: "list-alt",
+      iconName: 'list-alt',
+      iconNameOutline: 'list-alt',
     },
   ];
 
   return (
     <Flex
-      minH={"3.5rem"}
-      direction={"row"}
-      w={"100%"}
-      backgroundColor={useColorModeValue("white", "black")}
+      minH='3.5rem'
+      direction='row'
+      w='100%'
+      backgroundColor={useColorModeValue('white', 'black')}
       zIndex={9999}
-      borderTopWidth={"1px"}
-      borderTopColor={useColorModeValue("muted.400", "muted.600")}
+      borderTopWidth='1px'
+      borderTopColor={useColorModeValue('muted.400', 'muted.600')}
     >
-      {routes.map((route) => (
-        <TabButton key={route.id} {...route} />
-      ))}
+      {routes.map((route) =>
+        (
+          <TabButton key={route.id} {...route} />
+        ))}
     </Flex>
   );
 }

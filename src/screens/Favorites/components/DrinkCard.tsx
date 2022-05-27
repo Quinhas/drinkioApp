@@ -1,9 +1,16 @@
-import { useNavigation } from "@react-navigation/native";
-import { Badge, Flex, Image, Pressable, Text } from "native-base";
-import React, { useEffect, useState } from "react";
-import { Animated } from "react-native";
-import drinkioApi, { DrinkProps } from "../../../services/DrinkioService";
-import { scaleAnimation } from "../../../utils/animations/scale";
+import { useNavigation } from '@react-navigation/native';
+import {
+  Badge,
+  Flex,
+  Image,
+  Pressable,
+  Text,
+  useColorModeValue
+} from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Animated } from 'react-native';
+import drinkioApi, { DrinkProps } from '../../../services/DrinkioService';
+import { scaleAnimation } from '../../../utils/animations/scale';
 
 type DrinkCardProps = {
   id: number;
@@ -18,15 +25,15 @@ export function DrinkCard({ id }: DrinkCardProps) {
   useEffect(() => {
     async function getData() {
       setIsLoading(true);
-      const _drink = await drinkioApi.getDrinkDetails({ id });
-      setDrink(_drink);
+      const data = await drinkioApi.getDrinkDetails({ id });
+      setDrink(data);
       setIsLoading(false);
     }
     getData();
   }, []);
 
   function goToDrinkDetails() {
-    navigation.navigate("DrinkDetails", { id });
+    navigation.navigate('DrinkDetails', { id });
   }
 
   if (isLoading) {
@@ -37,7 +44,9 @@ export function DrinkCard({ id }: DrinkCardProps) {
     return <></>;
   }
 
-  const color = drink.alcoholic ? "red.400" : "green.500";
+  const color = drink.alcoholic
+    ? useColorModeValue('red.400', 'red.300')
+    : useColorModeValue('green.500', 'green.300');
 
   return (
     <Pressable
@@ -47,42 +56,46 @@ export function DrinkCard({ id }: DrinkCardProps) {
     >
       <Animated.View style={animation.style}>
         <Flex
-          h={"4.625rem"}
+          h='4.625rem'
           shadow={4}
-          bg={"white"}
-          borderRadius={"0.75rem"}
-          direction={"row"}
-          p={"0.75rem"}
+          bg={useColorModeValue('white', 'black')}
+          borderRadius='0.75rem'
+          direction='row'
+          p='0.75rem'
         >
           <Image
-            borderRadius={"lg"}
-            resizeMode={"cover"}
-            size={"3.125rem"}
+            borderRadius='lg'
+            resizeMode='cover'
+            size='3.125rem'
             style={{
               aspectRatio: 1 / 1,
             }}
-            zIndex={"0"}
-            alt={"Imagem de um drink"}
+            zIndex='0'
+            alt='Imagem de um drink'
             source={{
               uri: drink.thumb,
-              cache: "force-cache"
+              cache: 'force-cache',
             }}
-            mr={"0.75rem"}
+            mr='0.75rem'
           />
-          <Flex align={"flex-start"} grow={1} justify={"space-between"}>
-            <Text fontWeight={"black"}>{drink.name}</Text>
+          <Flex
+            align='flex-start'
+            grow={1}
+            justify='space-between'
+          >
+            <Text fontWeight='black'>{drink.name}</Text>
             <Badge
-              variant={"outline"}
-              borderRadius={"4px"}
+              variant='outline'
+              borderRadius='4px'
               _text={{
-                fontWeight: "bold",
-                fontSize: "0.75rem",
-                color: color,
+                fontWeight: 'bold',
+                fontSize: '0.75rem',
+                color,
               }}
-              textTransform={"uppercase"}
+              textTransform='uppercase'
               borderColor={color}
             >
-              {drink.alcoholic ? "Alcoholic" : "Non alcoholic"}
+              {drink.alcoholic ? 'Alcoholic' : 'Non alcoholic'}
             </Badge>
           </Flex>
         </Flex>
