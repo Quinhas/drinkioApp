@@ -1,6 +1,6 @@
 export declare global {
   namespace ReactNavigation {
-    interface RootParamList {
+    type RootParamList = {
       CategoryDetails: {
         id: number;
       };

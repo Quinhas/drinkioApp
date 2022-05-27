@@ -7,13 +7,13 @@ import {
   Flex,
   Icon,
   Image,
-  ScrollView,
   Skeleton,
   Text,
   View,
   VStack
 } from "native-base";
 import React, { useEffect, useState } from "react";
+import { CustomView } from "../../components/CustomView";
 import useFavorites from "../../hooks/useFavorites";
 import drinkioApi, { DrinkProps } from "../../services/DrinkioService";
 import { capitalizeOnlyFirstLetter } from "../../utils/CapitalizeOnlyFirstLetter";
@@ -102,7 +102,7 @@ export function DrinkDetails() {
   }
 
   return (
-    <ScrollView>
+    <CustomView showTabs>
       <Box
         minH={"12.5rem"}
         borderBottomRadius={"0.75rem"}
@@ -308,6 +308,6 @@ export function DrinkDetails() {
           })}
         </Flex>
       </VStack>
-    </ScrollView>
+    </CustomView>
   );
 }
