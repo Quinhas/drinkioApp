@@ -47,7 +47,7 @@ export function DrinksList({ isLoading, drinks = [] }: DrinksListProps) {
           fontSize='1.25rem'
           mt='1rem'
         >
-          Nenhum drink foi encontrado.
+          No drinks were found.
         </Text>
       </Flex>
     );

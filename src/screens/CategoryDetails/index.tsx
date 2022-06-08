@@ -84,7 +84,7 @@ export function CategoryDetails() {
             top='0.75rem'
             right='1.5rem'
             onPress={() =>
-              navigation.goBack()}
+              updateFavoriteCategory(category.id)}
           >
             <Icon
               as={FontAwesome}
@@ -96,8 +96,6 @@ export function CategoryDetails() {
               }
               color='primaryApp.500'
               size='1rem'
-              onPress={() =>
-                updateFavoriteCategory(category.id)}
             />
           </Button>
           <Text

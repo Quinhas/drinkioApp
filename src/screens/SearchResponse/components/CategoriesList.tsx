@@ -49,7 +49,7 @@ export function CategoriesList({
           fontSize='1.25rem'
           mt='1rem'
         >
-          Nenhuma categoria foi encontrado.
+          No categories were found.
         </Text>
       </Flex>
     );

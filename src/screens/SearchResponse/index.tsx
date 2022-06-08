@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
-import { Button, HStack, Icon, Input, View } from 'native-base';
+import { Button, HStack, Icon, Input, useColorModeValue, View } from 'native-base';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import drinkioApi, { CategoryProps, DrinkProps } from '../../services/DrinkioService';
@@ -84,8 +84,8 @@ export function SearchResponse() {
 
   return (
     <BlurView
-      tint='light'
-      intensity={30}
+      tint='dark'
+      intensity={0}
       style={{
         maxHeight: '100vh',
         minHeight: '100vh',
@@ -95,35 +95,42 @@ export function SearchResponse() {
         style={{
           position: 'absolute',
           top: 0,
-          minHeight: '4rem',
-          maxHeight: '4rem',
+          minHeight: '5.5rem',
+          maxHeight: '5.5rem',
           width: '100%',
           zIndex: 9999,
         }}
         onPress={navigation.goBack}
       />
       <View
-        mt='4rem'
+        backgroundColor='rgba(0,0,0,0.65)'
+        h='100vh'
+        w='100%'
+        position='absolute'
+      />
+      <View
+        mt='5.5rem'
         px='1.5rem'
         bg='light.100'
-        borderTopRadius='3xl'
-        shadow={9}
+        borderTopRadius='1.5rem'
         display='flex'
-        maxH='calc(100vh - 4rem)'
-        minH='calc(100vh - 4rem)'
-        backgroundColor='rgba(0,0,0,0.9)'
+        maxH='calc(100vh - 5.5rem)'
+        minH='calc(100vh - 5.5rem)'
+        backgroundColor={useColorModeValue('gray.50', 'gray.900')}
+        shadow='9'
+        zIndex={9998}
       >
         <Input
           ref={inputRef}
           variant='filled'
           borderRadius='0.75rem'
-          bgColor='white'
+          bg={useColorModeValue('white', 'black')}
           placeholder={placeholder ?? 'Search'}
           fontSize='0.9375rem'
           fontWeight='medium'
           h='2.25rem'
           py='0'
-          mt='2.75rem'
+          mt='1.5rem'
           mb='1rem'
           InputLeftElement={(
             <Icon
