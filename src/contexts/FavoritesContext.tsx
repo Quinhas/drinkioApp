@@ -1,3 +1,4 @@
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { useToast } from 'native-base';
 import React, {
   createContext,
@@ -23,37 +24,46 @@ export const FavoritesContext = createContext({} as FavoritesContextProps);
 export function FavoritesContextProvider({
   children,
 }: FavoritesContextProviderProps) {
-  const [favoritesDrinks, setFavoritesDrinks] = useState<number[]>(
-    JSON.parse(localStorage.getItem('@DrinkioApp:FavoritesDrinks')!) ?? [],
-  );
-  const [favoritesCategories, setFavoritesCategories] = useState<number[]>(
-    JSON.parse(localStorage.getItem('@DrinkioApp:FavoritesCategories')!) ?? [],
-  );
+  const [favoritesDrinks, setFavoritesDrinks] = useState<number[]>([]);
+  const [favoritesCategories, setFavoritesCategories] = useState<number[]>([]);
   const toast = useToast();
-  // const { getItem: getDrinks, setItem: setDrinks } = useAsyncStorage(
-  //   '@DrinkioApp:FavoritesDrinks'
-  // );
-  // const { getItem: getCategories, setItem: setCategories } = useAsyncStorage(
-  //   '@DrinkioApp:FavoritesCategories'
-  // );
+  const { getItem: getDrinks, setItem: setDrinks } = useAsyncStorage(
+    '@DrinkioApp:FavoritesDrinks'
+  );
+  const { getItem: getCategories, setItem: setCategories } = useAsyncStorage(
+    '@DrinkioApp:FavoritesCategories'
+  );
+
+  useEffect(() => {
+    getDrinks((err, result) => {
+      if (result) {
+        setCategories(JSON.parse(result));
+      }
+    });
+    getCategories((err, result) => {
+      if (result) {
+        setCategories(JSON.parse(result));
+      }
+    });
+  }, []);
 
   useEffect(() => {
     (async () => {
-      // await setDrinks(JSON.stringify(favoritesDrinks));
-      localStorage.setItem(
-        '@DrinkioApp:FavoritesDrinks',
-        JSON.stringify(favoritesDrinks),
-      );
+      await setDrinks(JSON.stringify(favoritesDrinks));
+      // localStorage.setItem(
+      //   '@DrinkioApp:FavoritesDrinks',
+      //   JSON.stringify(favoritesDrinks),
+      // );
     })();
   }, [favoritesDrinks]);
 
   useEffect(() => {
     (async () => {
-      // await setCategories(JSON.stringify(favoritesCategories));
-      localStorage.setItem(
-        '@DrinkioApp:FavoritesCategories',
-        JSON.stringify(favoritesCategories),
-      );
+      await setCategories(JSON.stringify(favoritesCategories));
+      // localStorage.setItem(
+      //   '@DrinkioApp:FavoritesCategories',
+      //   JSON.stringify(favoritesCategories),
+      // );
     })();
   }, [favoritesCategories]);
 
