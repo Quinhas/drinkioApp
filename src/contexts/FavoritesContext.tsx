@@ -1,3 +1,4 @@
+import { useToast } from 'native-base';
 import React, {
   createContext,
   ReactNode,
@@ -28,6 +29,7 @@ export function FavoritesContextProvider({
   const [favoritesCategories, setFavoritesCategories] = useState<number[]>(
     JSON.parse(localStorage.getItem('@DrinkioApp:FavoritesCategories')!) ?? [],
   );
+  const toast = useToast();
   // const { getItem: getDrinks, setItem: setDrinks } = useAsyncStorage(
   //   '@DrinkioApp:FavoritesDrinks'
   // );
@@ -61,10 +63,36 @@ export function FavoritesContextProvider({
     if (!drinkExists) {
       setFavoritesDrinks((prevState) =>
         [...prevState, id]);
+      if (!toast.isActive(`${id}-drink-add`)) {
+        toast.show({
+          id: `${id}-drink-add`,
+          description: 'Drink added to favorites',
+          placement: 'bottom',
+          _light: {
+            bgColor: 'green.500'
+          },
+          _dark: {
+            bgColor: 'green.600'
+          },
+        });
+      }
     } else {
       setFavoritesDrinks((prevState) =>
         prevState.filter((_id) =>
           _id !== id));
+      if (!toast.isActive(`${id}-drink-remove`)) {
+        toast.show({
+          id: `${id}-drink-remove`,
+          description: 'Drink removed from favorites',
+          placement: 'bottom',
+          _light: {
+            bgColor: 'red.500'
+          },
+          _dark: {
+            bgColor: 'red.300'
+          },
+        });
+      }
     }
   }
 
@@ -74,23 +102,46 @@ export function FavoritesContextProvider({
     if (!categoryExists) {
       setFavoritesCategories((prevState) =>
         [...prevState, id]);
+      if (!toast.isActive(`${id}-category-add`)) {
+        toast.show({
+          id: `${id}-category-add`,
+          description: 'Category added to favorites',
+          placement: 'bottom',
+          _light: {
+            bgColor: 'green.500'
+          },
+          _dark: {
+            bgColor: 'green.600'
+          },
+        });
+      }
     } else {
       setFavoritesCategories((prevState) =>
         prevState.filter((_id) =>
           _id !== id));
+      if (!toast.isActive(`${id}-category-remove`)) {
+        toast.show({
+          id: `${id}-category-remove`,
+          description: 'Category removed from favorites',
+          placement: 'bottom',
+          _light: {
+            bgColor: 'red.500'
+          },
+          _dark: {
+            bgColor: 'red.300'
+          },
+        });
+      }
     }
   }
 
-  const value = useMemo(
-    () =>
-      ({
-        favoritesDrinks,
-        favoritesCategories,
-        updateFavoriteDrink,
-        updateFavoriteCategory,
-      }),
-    [],
-  );
+  const value = useMemo(() =>
+    ({
+      favoritesDrinks,
+      favoritesCategories,
+      updateFavoriteDrink,
+      updateFavoriteCategory,
+    }), [favoritesDrinks, favoritesCategories]);
 
   return (
     <FavoritesContext.Provider value={value}>

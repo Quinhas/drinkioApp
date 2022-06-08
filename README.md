@@ -55,7 +55,7 @@ $ yarn start
   - [x] 10a - Drinks favoritos;
   - [x] 10b - Categorias favoritas;
 - [x] 11 - Drink do dia;
-- [ ] 12 - Filtro de busca por alcoólico/não alcoólico;
+- [x] 12 - Filtro de busca por alcoólico/não alcoólico;
 
 
 
