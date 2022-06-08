@@ -1,30 +1,40 @@
 {
   "expo": {
-    "name": "drinksApp",
-    "slug": "drinksApp",
+    "name": "drink.io",
+    "slug": "drinkio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
       "image": "./src/assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#15D6FF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.quinhas.drinkio"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#15D6FF"
+      },
+      "package": "com.quinhas.drinkio",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3e1a2df1-6b98-4f3c-8803-3ef8b95ab81e"
+      }
     }
   }
 }
