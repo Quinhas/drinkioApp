@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   RedHatDisplay_300Light,
   RedHatDisplay_300Light_Italic,
@@ -14,24 +15,25 @@ import {
   RedHatDisplay_900Black,
   RedHatDisplay_900Black_Italic,
   useFonts
-} from "@expo-google-fonts/red-hat-display";
-import { LinearGradient } from "expo-linear-gradient";
-import { INativebaseConfig, NativeBaseProvider } from "native-base";
-import React from "react";
-import { FavoritesContextProvider } from "./src/contexts/FavoritesContext";
-import { Routes } from "./src/routes";
-import { theme } from "./src/theme";
+} from '@expo-google-fonts/red-hat-display';
+import AppLoading from 'expo-app-loading';
+import { LinearGradient } from 'expo-linear-gradient';
+import { INativebaseConfig, NativeBaseProvider } from 'native-base';
+import React from 'react';
+import { FavoritesContextProvider } from './src/contexts/FavoritesContext';
+import { Routes } from './src/routes';
+import { theme } from './src/theme';
 
 const config: INativebaseConfig = {
   dependencies: {
-    "linear-gradient": LinearGradient,
+    'linear-gradient': LinearGradient,
   },
   enableRem: true,
-  strictMode: "warn",
+  strictMode: 'warn',
 };
 
 export default function App() {
-  useFonts({
+  const [loadedFonts] = useFonts({
     RedHatDisplay_300Light,
     RedHatDisplay_300Light_Italic,
     RedHatDisplay_400Regular,
@@ -47,6 +49,12 @@ export default function App() {
     RedHatDisplay_900Black,
     RedHatDisplay_900Black_Italic,
   });
+
+  if (!loadedFonts) {
+    return (
+      <AppLoading />
+    );
+  }
 
   return (
     <NativeBaseProvider theme={theme} config={config}>
